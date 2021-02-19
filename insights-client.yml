@@ -1,5 +1,11 @@
 - hosts: all
-  roles:
-  - role: redhataccess.redhat-access-insights-client
-    insights_display_name: "{{ inventory_hostname }}"
-    when: ansible_os_family == 'RedHat'
+  collections:
+    - redhatinsights.insights
+  vars:
+    insights_display_name: 'example_system'
+    ansible_python_interpreter: '/usr/libexec/platform-python'
+
+  tasks:
+    - include_role: 
+        name: insights_client
+      when: ansible_os_family == 'RedHat'
